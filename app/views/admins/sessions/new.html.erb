@@ -1,5 +1,11 @@
 <h2>Log in - Admin</h2>
 
+<!-- Tratamento de erro pra email e senha -->
+<% flash.each do |key, value| %>
+  <div class="flash <% key %>"> <%= value %></div>
+<% end %>
+<!-- ==================================== -->
+
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
