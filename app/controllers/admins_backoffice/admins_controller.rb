@@ -4,6 +4,6 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   end
 
   def edit
-    # ação para editar informações de admin
+    @admin = Admin.find(params[:id])
   end
 end

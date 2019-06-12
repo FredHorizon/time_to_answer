@@ -15,9 +15,9 @@
                     <td><%= admin.id %></td>
                     <td><%= admin.email %></td>
                     <td style="width:100px">
-                        <button
-                            type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i>
-                        </button>
+                        <%= link_to edit_admins_backoffice_admin_path(admin), class:"btn btn-primary btn-circle" do %> <!-- no path, ao invés de 'admin.id', basta por apenas 'admin' que o rails já vai saber que se trata de uma chamada ao id -->
+                            <i class="fa fa-edit"></i>
+                        <% end %>
                         <button
                             type="button" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i>
                         </button>
