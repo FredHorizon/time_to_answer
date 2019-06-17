@@ -27,9 +27,9 @@
                         <%= link_to edit_admins_backoffice_admin_path(admin), class:"btn btn-primary btn-circle" do %> <!-- no path, ao invés de 'admin.id', basta por apenas 'admin' que o rails já vai saber que se trata de uma chamada ao id -->
                             <i class="fa fa-edit"></i>
                         <% end %>
-                        <button
-                            type="button" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i>
-                        </button>
+                        <%= link_to admins_backoffice_admin_path(admin), method: :delete, class:"btn btn-danger btn-circle", data: { confirm: "Deseja realmente excluir" } do %>
+                            <i class="fa fa-trash"></i>
+                        <% end %>
                     </td>
                 </tr>
             <% end %>
