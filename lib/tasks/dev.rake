@@ -8,10 +8,11 @@ namespace :dev do
     # puts %x(rails db:drop db:create db:migrate db:seed)
     
     if Rails.env.development?
+      show_spinner("Apagando BD...") { %x(rails db:drop) }
       show_spinner("Criando BD...") { %x(rails db:create) }
       show_spinner("Migrando BD...") { %x(rails db:migrate) }
       show_spinner("Cadastrando o administrador padrão...") { %x(rails dev:add_default_admin) }
-      show_spinner("Cadastrando o administradores extras...") { %x(rails dev:add_fakes_admin) }
+      show_spinner("Cadastrando os administradores extras...") { %x(rails dev:add_fakes_admin) }
       show_spinner("Cadastrando o usuário padrão...") { %x(rails dev:add_default_user) }
       # %x(rails dev:add_mining_types)
     else
