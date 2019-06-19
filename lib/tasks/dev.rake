@@ -1,6 +1,7 @@
 namespace :dev do
 
   DEFAULT_PASSWORD = 123456
+  DEFAULT_FILES_PATH = File.join(Rails.root, 'lib', 'tmp')
   
   desc "Configura o ambiente de desenvolvimento"
   task setup: :environment do
@@ -14,7 +15,7 @@ namespace :dev do
       show_spinner("Cadastrando o administrador padrão...") { %x(rails dev:add_default_admin) }
       show_spinner("Cadastrando os administradores extras...") { %x(rails dev:add_fakes_admin) }
       show_spinner("Cadastrando o usuário padrão...") { %x(rails dev:add_default_user) }
-      # %x(rails dev:add_mining_types)
+      show_spinner("Cadastrando assuntos padrões...") { %x(rails dev:add_subjects) }
     else
       puts "Você não está em modo de desenvolvimento!"
     end
@@ -47,6 +48,16 @@ namespace :dev do
       password: DEFAULT_PASSWORD,
       password_confirmation: DEFAULT_PASSWORD
     )
+  end
+
+  desc "Adiciona assuntos padrão"
+  task add_subjects: :environment do
+    file_name = 'subjects.txt'
+    file_path = File.join(DEFAULT_FILES_PATH, file_name)
+
+    File.open(file_path, 'r').each do |line| # 'r' somente leitura
+      Subject.create!(description: line.strip) # .strip tira oculta o '/n', que são os espaços das palavras de cada linha
+    end
   end
 
   private
