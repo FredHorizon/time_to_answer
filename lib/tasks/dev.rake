@@ -16,6 +16,7 @@ namespace :dev do
       show_spinner("Cadastrando os administradores extras...") { %x(rails dev:add_fakes_admin) }
       show_spinner("Cadastrando o usuário padrão...") { %x(rails dev:add_default_user) }
       show_spinner("Cadastrando assuntos padrões...") { %x(rails dev:add_subjects) }
+      show_spinner("Cadastrando perguntas e respostas...") { %x(rails dev:add_answers_and_questions) }
     else
       puts "Você não está em modo de desenvolvimento!"
     end
@@ -57,6 +58,18 @@ namespace :dev do
 
     File.open(file_path, 'r').each do |line| # 'r' somente leitura
       Subject.create!(description: line.strip) # .strip tira oculta o '/n', que são os espaços das palavras de cada linha
+    end
+  end
+
+  desc "Adiciona perguntas e respostas"
+  task add_answers_and_questions: :environment do
+    Subject.all.each do |subject| # Assunto
+      rand(5..10).times do |i| # Para cada um dos Assuntos, cria entre 5 e 10 Questões
+        Question.create!( # Questão
+          description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+          subject: subject
+        )
+      end
     end
   end
 
