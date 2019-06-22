@@ -6,15 +6,15 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
 	end
 	
 	def new
-		@questions = Question.new
+		@question = Question.new
 	end
 	
 	def create
-		@questions = Question.new(params_question)
-		if @questions.save
-		redirect_to admins_backoffice_questions_path, notice: "Questão cadastrada com sucesso!"
+		@question = Question.new(params_question)
+		if @question.save
+			redirect_to admins_backoffice_questions_path, notice: "Questão cadastrada com sucesso!"
 		else
-		render :new
+			render :new
 		end
 	end
 	
@@ -22,28 +22,28 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
 	end
 	
 	def update
-		if @questions.update(params_question)
-		redirect_to admins_backoffice_questions_path, notice: "Questão atualizada com sucesso!"
+		if @question.update(params_question)
+			redirect_to admins_backoffice_questions_path, notice: "Questão atualizada com sucesso!"
 		else
-		render :edit
+			render :edit
 		end
 	end
 	
 	def destroy
-		if @questions.destroy
-		redirect_to admins_backoffice_questions_path, notice: "Questão excluída com sucesso!"
+		if @question.destroy
+			redirect_to admins_backoffice_questions_path, notice: "Questão excluída com sucesso!"
 		else
-		render :index
+			render :index
 		end
 	end
 	
 	private
 	
 	def params_question
-		params.require(:question).permit(:description)
+		params.require(:question).permit(:description, :subject_id)
 	end
 	
 	def set_question
-		@questions = Question.find(params[:id])
+		@question = Question.find(params[:id])
 	end
 end
