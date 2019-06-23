@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Perguntas</h1>
+        <h1 class="page-header">Listando Perguntas</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -10,8 +10,8 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Descrição</th>
-                <th>Assunto</th>
+                <th><%= translate_attribute(@questions, :description) %></th>
+                <th><%= translate_attribute(@questions, :subject) %></th>
                 <th><%= link_to 'Novo +', new_admins_backoffice_question_path, class:"btn btn-success" %></th>
             </tr>
         </thead>
