@@ -65,10 +65,27 @@ namespace :dev do
   task add_answers_and_questions: :environment do
     Subject.all.each do |subject| # Assunto
       rand(5..10).times do |i| # Para cada um dos Assuntos, cria entre 5 e 10 Questões
-        Question.create!( # Questão
+
+        params = { question: { # hashe para que cria as questões e respostas
           description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
-          subject: subject
-        )
+          subject: subject,
+          answers_attributes: [] # vetor de respostas para as questões
+        }}
+
+        rand(2..5).times do |j| # criar entre 2 e 5 respostas para cada questão
+          params[:question][:answers_attributes].push( # empurra um elemento para o vetor answers_attributes da linha 73
+            { description: Faker::Lorem.sentence, correct: false }
+          )
+        end
+
+        # solução para criação de uma pergunta true, visto que todas do hashe da linha 76 são falso
+        index = rand(params[:question][:answers_attributes].size)
+        # escolhe uma das respostas já criadas e altualiza para true
+        params[:question][:answers_attributes][index] = { description: Faker::Lorem.sentence, correct: true }
+        # /
+
+        # Criação da questão com as respostas, baseada nos parâmetros já configurados nas linhas acima
+        Question.create!( params[:question])
       end
     end
   end
