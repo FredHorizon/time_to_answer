@@ -65,32 +65,44 @@ namespace :dev do
   task add_answers_and_questions: :environment do
     Subject.all.each do |subject| # Assunto
       rand(5..10).times do |i| # Para cada um dos Assuntos, cria entre 5 e 10 Questões
+        params = create_question_params(subject) #1 Pega os parâmetros
+        answers_array = params[:question][:answers_attributes] #2 Separa o array das respostas
+          
+        add_answers(answers_array) #3 Adiciona as respostas
+        elect_true_answer(answers_array) #4 Elege uma resposta verdadeira
 
-        params = { question: { # hashe para que cria as questões e respostas
-          description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
-          subject: subject,
-          answers_attributes: [] # vetor de respostas para as questões
-        }}
-
-        rand(2..5).times do |j| # criar entre 2 e 5 respostas para cada questão
-          params[:question][:answers_attributes].push( # empurra um elemento para o vetor answers_attributes da linha 73
-            { description: Faker::Lorem.sentence, correct: false }
-          )
-        end
-
-        # solução para criação de uma pergunta true, visto que todas do hashe da linha 76 são falso
-        index = rand(params[:question][:answers_attributes].size)
-        # escolhe uma das respostas já criadas e altualiza para true
-        params[:question][:answers_attributes][index] = { description: Faker::Lorem.sentence, correct: true }
-        # /
-
-        # Criação da questão com as respostas, baseada nos parâmetros já configurados nas linhas acima
-        Question.create!( params[:question])
+        Question.create!( params[:question]) # Por fim, pega os parâmetros com as devidas alterações e salva
       end
     end
   end
 
   private
+
+  def create_question_params(subject = Subject.all.sample) #1
+    { question: {
+        description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+        subject: subject,
+        answers_attributes: [] #2
+      }
+    }
+  end
+
+  def create_answer_params(correct = false)
+    { description: Faker::Lorem.sentence, correct: correct }
+  end
+
+  def add_answers(answers_array = []) #3
+    rand(2..5).times do |j|
+      answers_array.push(
+        create_answer_params
+      )
+    end
+  end
+
+  def elect_true_answer(answers_array = []) #4
+    selected_index = rand(answers_array.size)
+    answers_array[selected_index] = create_answer_params(true)
+  end
 
   def show_spinner(msg_start, msg_end = "Conluído com sucesso!") # parâmetros de mensagem de início e final. A de final será por padrão 'Concluído com sucesso', caso não seja setada
     spinner = TTY::Spinner.new("[:spinner] #{msg_start}")
