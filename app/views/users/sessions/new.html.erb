@@ -1,26 +1,39 @@
-<h2>Log in - Users</h2>
+<div>
+  <a class="hiddenanchor" id="signin"></a>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <div class="login_wrapper">
+    <div class="animate form login_form">
+      <section class="login_content">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <h1>Login</h1>
+          <div>
+            <%= f.email_field :email, autofocus: true, placeholder:"Email", class:"form-control" %>
+          </div>
+          <div>
+            <%= f.password_field :password,  placeholder:"Senha", class:"form-control" %>
+          </div>
+          <div>
+            <%= f.submit "Entrar", class:"btn btn-default submit", style:"float: none; margin-left: 0px; width: 70%;" %>
+            <!-- <a class="reset_pass" href="#">Lost your password?</a> -->
+          </div>
+          
+          <div class="clearfix"></div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+          <div class="separator">
+            <!-- <p class="change_link">New to site?
+              <a href="#signup" class="to_register"> Create Account </a>
+            </p>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+            <div class="clearfix"></div>
+            <br />
+
+            <div>
+              <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+              <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+            </div> -->
+          </div>
+        <% end %>
+      </section>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>
