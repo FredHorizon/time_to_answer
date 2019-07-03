@@ -35,6 +35,12 @@
             <a class="navbar-brand" href="#">Time To Answer</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
+            <%= form_with(url: site_search_path, local: true, method: :get, class:"navbar-form navbar-left") do |form| %>
+              <div class="form-group">
+                <%= form.text_field :term, class:"form-control", placeholder:"Digite a pesquisa aqui..." %>
+              </div>
+              <button type="submit" class="btn btn-default">Pesquisar</button>
+            <% end %>
             <ul class="nav navbar-nav">
               
             </ul>
