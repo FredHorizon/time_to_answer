@@ -32,7 +32,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Time To Answer</a>
+            <%= link_to 'Time To Answer', root_path, class:"navbar-brand" %>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <%= form_with(url: site_search_path, local: true, method: :get, class:"navbar-form navbar-left") do |form| %>
