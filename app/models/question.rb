@@ -7,4 +7,14 @@ class Question < ApplicationRecord
 
   # Kaminari
   paginates_per 5
+
+  def self.search(page,term) # método de classe
+    Question.includes(:answers)
+            .where("lower(description) LIKE ?", "%#{term.downcase}%")
+            .page(page)
+  end
+
+  def self.last_question(page)
+    Question.includes(:answers).order('created_at desc').page(page)
+  end
 end
