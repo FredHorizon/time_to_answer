@@ -1,1 +1,5 @@
-<h1>A resposta selecionada é: <%= params[:answer] %></h1>
+<% if @answer.correct %>
+    <h1 style="color: green;">Resposta CERTA! \o/</h1>
+<% else %>
+    <h1 style="color: red;">Resposta ERRADA! :'(</h1>
+<% end %>
