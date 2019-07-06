@@ -73,19 +73,10 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Site::Welcome#index</h1>
-        <p>Find me in app/views/site/welcome/index.html.erb</p>
-
-        <% if user_signed_in? %>
-            <p>Usuário LOGADO / <%= current_user.email %></p>
+        <% unless params[:term] %> <!-- a menos que tenha um termo pesquisado, mostre... Perguntas... -->
+          <h3>Perguntas adicionadas recentemente...</h3>
         <% else %>
-            <p>Usuário DESLOGADO</p>
-        <% end %>
-
-        <% if admin_signed_in? %>
-            <p>administrador LOGADO / <%= current_admin.email %></p>
-        <% else %>
-            <p>administrador DESLOGADO</p>
+          <h3><%= "Resultados para o termo: \"#{params[:term]}\"..." %></h3>
         <% end %>
       </div>
 
