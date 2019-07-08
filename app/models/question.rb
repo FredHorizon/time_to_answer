@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-  belongs_to :subject, inverse_of: :questions
+  belongs_to :subject, counter_cache: true, inverse_of: :questions
 
   has_many :answers # uma questão possui muitas respostas
 
