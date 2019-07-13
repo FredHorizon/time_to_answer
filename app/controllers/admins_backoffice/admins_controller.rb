@@ -1,5 +1,5 @@
 class AdminsBackoffice::AdminsController < AdminsBackofficeController
-  before_action :verify_password, only: [:update] # before_action executa antes action(index,edit,update...) especificada. Nesse casso, update.
+  before_action :verify_password, only: [:update] # before_action executa antes action(index,edit,update...) especificada. Nesse casso, apenas update.
   before_action :set_admin, only: [:edit, :update, :destroy]
 
   def index
