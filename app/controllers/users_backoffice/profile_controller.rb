@@ -3,11 +3,12 @@ class UsersBackoffice::ProfileController < UsersBackofficeController
 	before_action :set_user
 
 	def edit
+		@user.build_user_profile if @user.user_profile.blank? # constrói uma view virtual para campos aninhados. Se os dados estiverem em branco.
 	end
 
 	def update
 		if @user.update(params_user)
-			sign_in(@user, bypass: true)
+			bypass_sign_in(@user)
 			redirect_to users_backoffice_profile_path, notice: "Usuário atualizado com sucesso!"
 		else
 			render :edit
@@ -17,7 +18,8 @@ class UsersBackoffice::ProfileController < UsersBackofficeController
 	private
 
 	def params_user
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+	params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation,
+		user_profile_attributes: [:id, :address, :gender, :birthdate])
   end
 
 	def set_user

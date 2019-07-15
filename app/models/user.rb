@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  
+  has_one :user_profile # usuário possui um perfil do usuário
+  accepts_nested_attributes_for :user_profile, reject_if: :all_blank
+
 
   # validations
   validates :first_name, presence: true, length: { minimum: 4 }, on: :update # primeiro nome não pode estar em branco, é campo obrigatório. Validação apenas no update 'on update'
