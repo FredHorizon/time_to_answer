@@ -96,7 +96,7 @@
             <div class="form-group">
                 <%= profile_form.label :birthdate, class:"control-label col-md-3 col-sm-3 col-xs-12" %>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <%= profile_form.text_field :birthdate,
+                    <%= profile_form.date_field :birthdate,
                             class:"form-control col-md-7 col-xs-12" %>
                 </div>
             </div>
@@ -106,7 +106,7 @@
             <%= form.label :password, class:"control-label col-md-3 col-sm-3 col-xs-12" %>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <%= form.password_field :password,
-                        class:"form-control col-md-7 col-xs-12" %>
+                        class:"form-control col-md-7 col-xs-12", placeholder:"********" %>
             </div>
         </div>
         
@@ -114,7 +114,7 @@
             <%= form.label :password_confirmation, class:"control-label col-md-3 col-sm-3 col-xs-12" %>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <%= form.password_field :password_confirmation,
-                        class:"form-control col-md-7 col-xs-12" %>
+                        class:"form-control col-md-7 col-xs-12", placeholder:"********" %>
             </div>
         </div>
         
