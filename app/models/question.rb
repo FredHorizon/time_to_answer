@@ -5,6 +5,9 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :answers, reject_if: :all_blank, allow_destroy: true
 
+  # Callback
+  after_create :set_statistic # Após criar a questão, registre no banco a estatística (isso é tipo uma trigger)
+
   # Kaminari
   paginates_per 5
 
@@ -25,4 +28,10 @@ class Question < ApplicationRecord
   scope :last_question, -> (page){
     includes(:answers, :subject).order('created_at desc').page(page)
   }
+
+  private
+
+  def set_statistic
+    AdminStatistic.set_event(AdminStatistic::EVENTS[:total_questions])
+  end
 end
