@@ -12,7 +12,6 @@ class Question < ApplicationRecord
   paginates_per 5
 
   # Scopes
-  # Scope
   scope :_search_subject_, -> (page,subject_id){
     includes(:answers, :subject)
     .where(subject_id: subject_id)
