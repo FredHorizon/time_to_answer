@@ -1,9 +1,9 @@
 class AdminsBackoffice::AdminsController < AdminsBackofficeController
-  before_action :verify_password, only: [:update] # before_action executa antes action(index,edit,update...) especificada. Nesse casso, apenas update.
+  before_action :verify_password, only: [:update]
   before_action :set_admin, only: [:edit, :update, :destroy]
 
   def index
-    @admins = Admin.all.page(params[:page]).per(5)
+    @admins = Admin.all.page(params[:page])
   end
 
   def new
@@ -22,8 +22,9 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   def edit
   end
 
-  def update
+  def update    
     if @admin.update(params_admin)
+      AdminMailer.update_email(current_admin, @admin).deliver_now # dispara um email de notificação
       redirect_to admins_backoffice_admins_path, notice: "Administrador atualizado com sucesso!"
     else
       render :edit
@@ -39,7 +40,7 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   end
 
   private
-
+  
   def params_admin
     params.require(:admin).permit(:email, :password, :password_confirmation)
   end
@@ -53,5 +54,4 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
       params[:admin].extract!(:password, :password_confirmation)
     end
   end
-
 end
