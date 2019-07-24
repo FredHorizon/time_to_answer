@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
 
   # validations
-  validates :first_name, presence: true, length: { minimum: 4 }, on: :update # primeiro nome não pode estar em branco, é campo obrigatório. Validação apenas no update 'on update'
+  validates :first_name, presence: true, length: { minimum: 4 }, on: :update, unless: :reset_password_token_present?
 
 
   # Virtual Attributes
@@ -25,5 +25,10 @@ class User < ApplicationRecord
 
   def set_statistic
     AdminStatistic.set_event(AdminStatistic::EVENTS[:total_users])
+  end
+
+  def reset_password_token_present?
+    # params está acessível apenas no controller. O acesso pelo modo se dar por meio de uma variável global 'global_params'
+    !!$global_params[:user][:reset_password_token] # duas '!!' transformam a sentença em um valor booleano. Se trouxer o toke, dará verdadeiro. Senão, falso.
   end
 end
